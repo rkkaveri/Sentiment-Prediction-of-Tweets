@@ -25,16 +25,23 @@ def clean_tweet(tweet):
     return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", " ", tweet).split())
 
 def analize_sentiment(tweet):
-
+    global f
+    global f2
     analysis = TextBlob(clean_tweet(tweet))
     if analysis.sentiment.polarity > 0:
+        f.write("This is positive:> \n"+tweet)
         return 1
     elif analysis.sentiment.polarity == 0:
+        f2.write("This is Negative:> \n"+tweet)
         return 0
     else:
         return -1
-
 ####################################################################################################
+global f
+global f2
+f = open('positive.txt','w')
+f2 = open('negative.txt','w')
+###############################################################################################
 extractor = twitter_setup()
 
 tweets = extractor.user_timeline(screen_name="realDonaldTrump", count=200)
@@ -64,4 +71,7 @@ neg_tweets = [ tweet for index, tweet in enumerate(data['Tweets']) if data['SA']
 print("Percentage of positive tweets: {}%".format(len(pos_tweets)*100/len(data['Tweets'])))
 print("Percentage of neutral tweets: {}%".format(len(neu_tweets)*100/len(data['Tweets'])))
 print("Percentage de negative tweets: {}%".format(len(neg_tweets)*100/len(data['Tweets'])))
+###############################################################################################
+f.close()
+f2.close()
 ###############################################################################################
