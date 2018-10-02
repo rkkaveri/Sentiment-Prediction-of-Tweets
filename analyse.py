@@ -5,10 +5,10 @@ from IPython.display import display
 import matplotlib.pyplot as plt
 import seaborn as sns
 from credential import *
-###########################################################
+#####################################
 from textblob import TextBlob
 import re
-#########################################%matplotlib inline
+#####################################
 
 def twitter_setup():
 
@@ -19,6 +19,7 @@ def twitter_setup():
     # Return API with authentication:
     api = tweepy.API(auth)
     return api
+
 ####################################################################################################
 def clean_tweet(tweet):
 
@@ -52,9 +53,9 @@ print("5 recent tweets:\n")
 for tweet in tweets[:5]:
     print(tweet.text)
     print()
-##################################################################\################
+#############################################################################################
 data = pd.DataFrame(data=[tweet.text for tweet in tweets], columns=['Tweets'])
-###################################################################################
+#############################################################################################
 data['len']  = np.array([len(tweet.text) for tweet in tweets])
 data['ID']   = np.array([tweet.id for tweet in tweets])
 data['Date'] = np.array([tweet.created_at for tweet in tweets])
